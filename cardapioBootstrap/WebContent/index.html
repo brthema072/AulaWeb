@@ -1,10 +1,121 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+	<head>
+		<title>Cardápio</title>
+		<meta charset="ISO-8859-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		
+	</head>
+	<body>
+		<script>
+			$(document).ready(function(){
+				$("#enviar").click(function(){
+					var conta = 0, select = $(":selected").val();
+					var radio = $("input[name='pratoPrincipal']:checked").val();
+					
+					checkbox = new Array();
+					$("input[type=checkbox][name='acompanhamento']:checked").each(function(){
+						checkbox.push($(this).val());
+					});
+					
+					if(radio == 'massa'){
+						conta = conta+12;
+					}if(radio == 'carne'){
+						conta = conta+ 15;
+					}if(radio == 'peixe'){
+						conta = conta+20;
+					}
+					for(var i =0; i<=3;i++){
+						if(checkbox[i] == 'Salada'){
+							conta = conta+7;
+						}if(checkbox[i] == 'Legumes'){
+							conta = conta+5;
+						}if(checkbox[i] == 'Farofa'){
+							conta = conta+8;
+						}if(checkbox[i]== 'Fritas'){
+							conta = conta+9;
+						}
+					}
+					if(select =='placompi'){
+						conta = conta-(conta /4);
+					}if(select =='abutua'){
+						conta = conta-(conta /3);
+					}if(select =='google'){
+						conta = conta-(conta /2.5);
+					}if(select =='prefeitura'){
+						conta = conta-(conta /5);
+					}
+					
+					
+					alert("total da conta: "+conta+"  "+$("#obs").val());
+					
+				});
+				
+				$("#resetar").click(function(){
+					$('#formulario').reset();
+				});
+			});
 
-</body>
+
+		</script>
+		<form id="formulario">
+			<div class="container-fluid">
+				
+				<div class="form-group groupIndex  btn-group-toggle" data-toggle="buttons"	id="ppRadio">
+					<label><strong>Prato principal:</strong></label><br>
+					<label class="btn btn-secondary active">
+						<input type="radio" id="massa" name="pratoPrincipal" value="massa" checked autocomplete="off" ><strong> Massa </strong>
+					</label>
+					<label class="btn btn-secondary">
+						<input type="radio" id="carne" name="pratoPrincipal" value="carne" autocomplete="off" > <strong>Carne</strong>
+					</label>
+					<label class="btn btn-secondary">
+						<input type="radio" id ="peixe" name="pratoPrincipal" value="peixe" autocomplete="off" > <strong>Peixe</strong>
+					</label>
+				</div>
+				
+				
+				<div class="form-group groupIndex btn-group-toggle" data-toggle="buttons">
+					<label><strong>Acompanhamentos:</strong></label><br>
+					<label class="btn btn-secondary active">
+						<input type="checkbox" id="salada" name="acompanhamento" value="Salada"checked> <strong>Salada </strong>
+					</label>
+					<label class="btn btn-secondary ">
+						<input type="checkbox" id="legumes" name="acompanhamento" value="Legumes"> <strong>Legumes </strong>
+					</label>
+					<label class="btn btn-secondary ">
+						<input type="checkbox" id="farofa" name="acompanhamento" value="Farofa" > <strong>Farofa </strong>
+					</label>
+					<label class="btn btn-secondary ">
+						<input type="checkbox" id="fritas" name="acompanhamento" value="Fritas" > <strong>Fritas </strong>
+					</label>
+				</div>
+
+				
+				<div class="form-group groupIndex" id="convSelect">
+					<label><strong>Convênio: </strong></label><br>
+					<select class="form-control col-md-3" id='convenio'>
+						<option value="placompi">Placomp</option>
+						<option value="abutua">Abutua</option>
+						<option value="google">Google</option>
+						<option value="prefeitura">Prefeitura</option>
+					</select>	<br><br>		
+				</div>
+				
+				<div class="form-group groupIndex " id="observacoes">
+					<label><strong>Observações</strong></label><br>
+					<textarea id="obs" class="col-md-3 form-control" rows="4" cols="50"></textarea><br><br>
+				</div>
+				
+				<div class="form-group groupIndex " id="observacoes">
+					<button id="enviar" class="btn btn-secondary col-md-1">Enviar</button>
+					<button id="resetar" class="btn btn-secondary col-md-1">Resetar</button>
+				</div>
+			</div>
+		</form>
+	</body>
 </html>
